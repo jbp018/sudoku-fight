@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sudoku Fight — El sudoku competitivo</title>
+  <meta name="description" content="Reta a tus amigos en tiempo real, compite en modo Best Time o resuelve puzzles en solitario. Sudoku Fight lleva el sudoku clásico al siguiente nivel." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:    #185FA5;
+      --blue-lt: #EBF3FB;
+      --gold:    #E8A020;
+      --gold-lt: #FFF8EC;
+      --green:   #1D9E75;
+      --red:     #E24B4A;
+      --ink:     #0E1A2B;
+      --muted:   #6B7A8D;
+      --surface: #F7F8FA;
+      --white:   #FFFFFF;
+      --border:  #E2E8F0;
+      --radius:  16px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--ink);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw;
+      height: 64px;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.2rem; font-weight: 800;
+      color: var(--blue);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-cta {
+      background: var(--blue); color: var(--white);
+      padding: 9px 20px; border-radius: 999px;
+      font-size: 0.85rem; font-weight: 600;
+      text-decoration: none; transition: opacity .2s;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 100px 5vw 60px;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, #dbeeff 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 80% 80%, #fff3d4 0%, transparent 60%),
+        var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Grid decorativo de fondo */
+    .hero-grid {
+      position: absolute; inset: 0;
+      display: grid; grid-template-columns: repeat(9, 1fr);
+      grid-template-rows: repeat(9, 1fr);
+      opacity: 0.04; pointer-events: none;
+    }
+    .hero-grid-cell {
+      border: 1px solid var(--ink);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif; font-size: clamp(0.8rem, 1.5vw, 1.2rem);
+      font-weight: 700; color: var(--ink);
+    }
+    .hero-grid-cell.bold { border-width: 2px; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--gold-lt); border: 1px solid #F5CC80;
+      color: #B87A10; border-radius: 999px;
+      padding: 5px 14px; font-size: 0.8rem; font-weight: 600;
+      margin-bottom: 24px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 800; line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      max-width: 800px;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+    .hero h1 em { font-style: normal; color: var(--blue); }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--muted); max-width: 520px;
+      margin: 20px auto 36px;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-actions {
+      display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+    .btn-primary {
+      background: var(--blue); color: var(--white);
+      padding: 14px 28px; border-radius: 999px;
+      font-size: 1rem; font-weight: 600;
+      text-decoration: none; transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 4px 20px rgba(24,95,165,0.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(24,95,165,0.4); }
+    .btn-secondary {
+      background: var(--white); color: var(--blue);
+      padding: 14px 28px; border-radius: 999px;
+      font-size: 1rem; font-weight: 600;
+      text-decoration: none; border: 1.5px solid var(--blue);
+      transition: background .2s;
+    }
+    .btn-secondary:hover { background: var(--blue-lt); }
+
+    .hero-note {
+      margin-top: 16px; font-size: 0.8rem; color: #AAA;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+
+    /* Mockup del tablero */
+    .hero-board {
+      margin-top: 56px;
+      animation: fadeUp 0.7s 0.5s ease both;
+    }
+    .board-frame {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: 0 20px 80px rgba(14,26,43,0.12), 0 0 0 1px var(--border);
+      display: inline-block;
+    }
+    .board-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 16px; padding: 0 4px;
+    }
+    .board-timer { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--blue); }
+    .board-errors { font-size: 0.85rem; color: var(--red); font-weight: 600; }
+    .sudoku-grid {
+      display: grid; grid-template-columns: repeat(9, 1fr);
+      border: 2.5px solid var(--ink); border-radius: 8px; overflow: hidden;
+      width: min(324px, 80vw);
+    }
+    .sudoku-grid .cell {
+      width: calc(min(324px, 80vw) / 9);
+      height: calc(min(324px, 80vw) / 9);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif; font-size: clamp(0.75rem, 2vw, 1rem); font-weight: 700;
+      border: 0.5px solid #D0D8E4;
+      background: var(--white);
+    }
+    .cell.given { color: var(--ink); }
+    .cell.filled { color: var(--blue); }
+    .cell.correct { color: var(--green); background: #F0FBF6; }
+    .cell.selected { background: var(--blue-lt); }
+    .cell.box-right { border-right: 2px solid var(--ink); }
+    .cell.box-bottom { border-bottom: 2px solid var(--ink); }
+
+    /* ── MODOS ── */
+    section { padding: 80px 5vw; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -0.02em; color: var(--ink);
+      max-width: 600px; margin-bottom: 16px;
+    }
+    .section-sub { color: var(--muted); max-width: 520px; margin-bottom: 48px; font-size: 1.05rem; }
+
+    .modes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .mode-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .mode-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(14,26,43,0.08); }
+    .mode-icon {
+      font-size: 2rem; margin-bottom: 14px;
+      width: 52px; height: 52px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 12px;
+    }
+    .mode-card h3 { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    .mode-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.5; }
+    .mode-badge {
+      display: inline-block; margin-top: 14px;
+      font-size: 0.72rem; font-weight: 600; padding: 3px 10px;
+      border-radius: 999px; letter-spacing: 0.05em;
+    }
+
+    /* ── FEATURES ── */
+    .features-bg { background: var(--surface); }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .feature-item {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+    }
+    .feature-item .fi { font-size: 1.6rem; margin-bottom: 10px; }
+    .feature-item h4 { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; }
+    .feature-item p { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+
+    /* ── STATS ── */
+    .stats-row {
+      display: flex; gap: 40px; flex-wrap: wrap; margin-bottom: 48px;
+    }
+    .stat-item {}
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800; color: var(--blue); line-height: 1;
+    }
+    .stat-label { font-size: 0.9rem; color: var(--muted); margin-top: 4px; }
+
+    /* ── DOWNLOAD ── */
+    .download-section {
+      background: var(--ink);
+      color: var(--white);
+      border-radius: 24px;
+      padding: 64px 5vw;
+      text-align: center;
+      margin: 0 4vw 80px;
+    }
+    .download-section .section-label { color: var(--gold); }
+    .download-section .section-title { color: var(--white); margin: 0 auto 16px; }
+    .download-section .section-sub { color: rgba(255,255,255,0.6); margin: 0 auto 36px; }
+    .store-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .store-btn {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 12px; padding: 12px 22px;
+      color: var(--white); text-decoration: none;
+      font-weight: 600; font-size: 0.95rem;
+      transition: background .2s;
+    }
+    .store-btn:hover { background: rgba(255,255,255,0.18); }
+    .store-btn-icon { font-size: 1.6rem; }
+    .store-btn-sub { font-size: 0.7rem; opacity: 0.7; font-weight: 400; display: block; }
+    .coming-soon { font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-top: 16px; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 5vw;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-logo {
+      font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800;
+      color: var(--blue); text-decoration: none;
+    }
+    .footer-logo span { color: var(--gold); }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; }
+    .footer-links a:hover { color: var(--blue); }
+    .footer-copy { font-size: 0.8rem; color: #BBB; }
+
+    /* ── ANIMACIONES ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hero-actions { flex-direction: column; align-items: center; }
+      .btn-primary, .btn-secondary { width: 100%; max-width: 280px; text-align: center; }
+      footer { flex-direction: column; text-align: center; }
+      .footer-links { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="/">Sudoku<span>Fight</span></a>
+  <ul class="nav-links">
+    <li><a href="#modos">Modos</a></li>
+    <li><a href="#features">Funciones</a></li>
+    <li><a href="#descargar">Descargar</a></li>
+  </ul>
+  <a class="nav-cta" href="#descargar">Descargar gratis</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+
+  <!-- Grid decorativo -->
+  <div class="hero-grid" aria-hidden="true">
+    <script>
+      const nums = '534678912672195348198342567859761423426853791713924856961537284287419635345286179';
+      document.currentScript.insertAdjacentHTML('afterend',
+        nums.split('').map((n,i) => {
+          const col = i % 9; const row = Math.floor(i / 9);
+          const boxR = Math.floor(row/3); const boxC = Math.floor(col/3);
+          const br = (boxC === 0 || boxC === 1) ? 'box-right' : '';
+          const bb = (boxR === 0 || boxR === 1) ? 'box-bottom' : '';
+          return `<div class="hero-grid-cell ${br} ${bb}">${n}</div>`;
+        }).join('')
+      );
+    </script>
+  </div>
+
+  <div class="hero-badge">⚡ Ahora disponible · Gratis</div>
+
+  <h1>El sudoku que te <em>pone a prueba</em></h1>
+
+  <p class="hero-sub">Reta a tus amigos en tiempo real, compite contra desconocidos o supera tus propios récords. Sudoku Fight lleva el clásico al siguiente nivel.</p>
+
+  <div class="hero-actions">
+    <a class="btn-primary" href="#descargar">📱 Descargar gratis</a>
+    <a class="btn-secondary" href="#modos">Ver modos de juego</a>
+  </div>
+
+  <p class="hero-note">Disponible en iOS y Android · Sin registro obligatorio para explorar</p>
+
+  <!-- Mockup tablero -->
+  <div class="hero-board">
+    <div class="board-frame">
+      <div class="board-header">
+        <span class="board-timer">04:23</span>
+        <span class="board-errors">2 errores</span>
+      </div>
+      <div class="sudoku-grid" id="demo-board"></div>
+    </div>
+  </div>
+
+</section>
+
+<!-- MODOS -->
+<section id="modos">
+  <p class="section-label">Modos de juego</p>
+  <h2 class="section-title">Cuatro formas de jugar, una sola app</h2>
+  <p class="section-sub">Desde el duelo rápido hasta la colaboración en equipo. Elige tu modo favorito o pruébalos todos.</p>
+
+  <div class="modes-grid">
+    <div class="mode-card">
+      <div class="mode-icon" style="background:#EBF3FB">⚡</div>
+      <h3>Face to face</h3>
+      <p>Compite en tiempo real contra otro jugador. El mismo puzzle, el mismo momento. Quien lo resuelva primero, gana.</p>
+      <span class="mode-badge" style="background:#EBF3FB;color:#185FA5">Multijugador</span>
+    </div>
+    <div class="mode-card">
+      <div class="mode-icon" style="background:#F2EEF9">⏱</div>
+      <h3>Best time</h3>
+      <p>Juega cuando quieras y compara tu tiempo con el de tu rival. No hace falta estar conectados a la vez.</p>
+      <span class="mode-badge" style="background:#F2EEF9;color:#7B5EA7">Asíncrono</span>
+    </div>
+    <div class="mode-card">
+      <div class="mode-icon" style="background:#E8F5ED">🤝</div>
+      <h3>Cooperativo</h3>
+      <p>Resuelve el puzzle junto a un compañero. Cada uno rellena las celdas que puede y el tiempo corre para los dos.</p>
+      <span class="mode-badge" style="background:#E8F5ED;color:#1D9E75">En equipo</span>
+    </div>
+    <div class="mode-card">
+      <div class="mode-icon" style="background:#FFF8EC">🧩</div>
+      <h3>Individual</h3>
+      <p>Sin presión. Resuelve a tu ritmo, bate tus propios récords y sube de nivel de dificultad cuando estés listo.</p>
+      <span class="mode-badge" style="background:#FFF8EC;color:#B87A10">Solo</span>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="features-bg">
+  <p class="section-label">Funciones</p>
+  <h2 class="section-title">Todo lo que necesitas para jugar en serio</h2>
+  <p class="section-sub">Diseñado para jugadores que quieren más que un sudoku de periódico.</p>
+
+  <div class="features-grid">
+    <div class="feature-item">
+      <div class="fi">📊</div>
+      <h4>Estadísticas completas</h4>
+      <p>Victorias, rachas, tiempo medio, mejor marca por dificultad. Todo en un solo vistazo.</p>
+    </div>
+    <div class="feature-item">
+      <div class="fi">🏆</div>
+      <h4>Logros</h4>
+      <p>Más de 40 logros para desbloquear. Desde la primera victoria hasta rachas de 15 partidas.</p>
+    </div>
+    <div class="feature-item">
+      <div class="fi">🤺</div>
+      <h4>Rivales</h4>
+      <p>Consulta tu historial frente a cada rival: cuántas veces habéis jugado, quién va ganando y cuál es tu mejor tiempo contra él.</p>
+    </div>
+    <div class="feature-item">
+      <div class="fi">✏️</div>
+      <h4>Modo lápiz</h4>
+      <p>Anota candidatos en cualquier celda sin comprometer tu jugada. Igual que en papel, pero mejor.</p>
+    </div>
+    <div class="feature-item">
+      <div class="fi">💡</div>
+      <h4>Pistas</h4>
+      <p>¿Atascado? Solicita una pista y el juego te revela una celda. Una gratis si eres Premium, el resto a cambio de un anuncio.</p>
+    </div>
+    <div class="feature-item">
+      <div class="fi">🔔</div>
+      <h4>Notificaciones</h4>
+      <p>Te avisamos cuando un rival te reta o cuando es tu turno en una partida en curso.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DESCARGAR -->
+<section id="descargar" style="padding: 0;">
+  <div class="download-section">
+    <p class="section-label">Descargar</p>
+    <h2 class="section-title">Empieza a jugar hoy. Es gratis.</h2>
+    <p class="section-sub">Disponible para iOS y Android. Sin suscripción obligatoria para empezar.</p>
+
+    <div class="store-buttons">
+      <a class="store-btn" href="#" aria-label="Descargar en App Store">
+        <span class="store-btn-icon">🍎</span>
+        <div>
+          <span class="store-btn-sub">Disponible en</span>
+          App Store
+        </div>
+      </a>
+      <a class="store-btn" href="#" aria-label="Descargar en Google Play">
+        <span class="store-btn-icon">▶</span>
+        <div>
+          <span class="store-btn-sub">Disponible en</span>
+          Google Play
+        </div>
+      </a>
+    </div>
+    <p class="coming-soon">Los enlaces se activarán en el lanzamiento oficial</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a class="footer-logo" href="/">Sudoku<span>Fight</span></a>
+  <ul class="footer-links">
+    <li><a href="privacidad.html">Política de privacidad</a></li>
+    <li><a href="terminos.html">Términos y condiciones</a></li>
+  </ul>
+  <span class="footer-copy">© 2026 SudokuFight. Todos los derechos reservados.</span>
+</footer>
+
+<script>
+  // Renderizar tablero de demo
+  const puzzle = [
+    [5,3,0,0,7,0,0,0,0],
+    [6,0,0,1,9,5,0,0,0],
+    [0,9,8,0,0,0,0,6,0],
+    [8,0,0,0,6,0,0,0,3],
+    [4,0,0,8,0,3,0,0,1],
+    [7,0,0,0,2,0,0,0,6],
+    [0,6,0,0,0,0,2,8,0],
+    [0,0,0,4,1,9,0,0,5],
+    [0,0,0,0,8,0,0,7,9],
+  ];
+  const filled = [
+    [0,0,4,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0],
+    [0,0,6,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0],
+  ];
+  const selected = [0, 2];
+  const board = document.getElementById('demo-board');
+  for (let r = 0; r < 9; r++) {
+    for (let c = 0; c < 9; c++) {
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      const br = (c === 2 || c === 5) ? 'box-right' : '';
+      const bb = (r === 2 || r === 5) ? 'box-bottom' : '';
+      if (br) cell.classList.add('box-right');
+      if (bb) cell.classList.add('box-bottom');
+      if (r === selected[0] && c === selected[1]) cell.classList.add('selected');
+      if (puzzle[r][c] !== 0) {
+        cell.classList.add('given');
+        cell.textContent = puzzle[r][c];
+      } else if (filled[r][c] !== 0) {
+        cell.classList.add(filled[r][c] === 4 ? 'correct' : 'filled');
+        cell.textContent = filled[r][c];
+      }
+      board.appendChild(cell);
+    }
+  }
+</script>
+
+</body>
+</html>
