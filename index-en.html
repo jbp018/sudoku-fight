@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sudoku Fight — Competitive Sudoku</title>
+  <meta name="description" content="Challenge your friends in real time, compete in Best Time mode or solve puzzles solo. Sudoku Fight takes classic sudoku to the next level." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue:#185FA5;--blue-lt:#EBF3FB;--gold:#E8A020;--gold-lt:#FFF8EC;
+      --green:#1D9E75;--red:#E24B4A;--ink:#0E1A2B;--muted:#6B7A8D;
+      --surface:#F7F8FA;--white:#FFFFFF;--border:#E2E8F0;--radius:16px;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);line-height:1.6;overflow-x:hidden}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:64px;background:rgba(255,255,255,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+    .nav-logo{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:var(--blue);text-decoration:none;display:flex;align-items:center;gap:8px}
+    .nav-logo span{color:var(--gold)}
+    .nav-links{display:flex;gap:28px;list-style:none}
+    .nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .2s}
+    .nav-links a:hover{color:var(--blue)}
+    .nav-cta{background:var(--blue);color:var(--white);padding:9px 20px;border-radius:999px;font-size:.85rem;font-weight:600;text-decoration:none;transition:opacity .2s}
+    .nav-cta:hover{opacity:.85}
+    .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 5vw 60px;background:radial-gradient(ellipse 80% 60% at 50% -10%,#dbeeff 0%,transparent 70%),radial-gradient(ellipse 40% 30% at 80% 80%,#fff3d4 0%,transparent 60%),var(--white);position:relative;overflow:hidden}
+    .hero-grid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(9,1fr);grid-template-rows:repeat(9,1fr);opacity:.04;pointer-events:none}
+    .hero-grid-cell{border:1px solid var(--ink);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:clamp(.8rem,1.5vw,1.2rem);font-weight:700;color:var(--ink)}
+    .hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--gold-lt);border:1px solid #F5CC80;color:#B87A10;border-radius:999px;padding:5px 14px;font-size:.8rem;font-weight:600;margin-bottom:24px;animation:fadeUp .6s ease both}
+    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.8rem,7vw,5.5rem);font-weight:800;line-height:1.05;letter-spacing:-.03em;color:var(--ink);max-width:800px;animation:fadeUp .6s .1s ease both}
+    .hero h1 em{font-style:normal;color:var(--blue)}
+    .hero-sub{font-size:clamp(1rem,2vw,1.2rem);color:var(--muted);max-width:520px;margin:20px auto 36px;animation:fadeUp .6s .2s ease both}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;animation:fadeUp .6s .3s ease both}
+    .btn-primary{background:var(--blue);color:var(--white);padding:14px 28px;border-radius:999px;font-size:1rem;font-weight:600;text-decoration:none;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(24,95,165,.3)}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(24,95,165,.4)}
+    .btn-secondary{background:var(--white);color:var(--blue);padding:14px 28px;border-radius:999px;font-size:1rem;font-weight:600;text-decoration:none;border:1.5px solid var(--blue);transition:background .2s}
+    .btn-secondary:hover{background:var(--blue-lt)}
+    .hero-note{margin-top:16px;font-size:.8rem;color:#AAA;animation:fadeUp .6s .4s ease both}
+    .hero-board{margin-top:56px;animation:fadeUp .7s .5s ease both}
+    .board-frame{background:var(--white);border-radius:24px;padding:20px;box-shadow:0 20px 80px rgba(14,26,43,.12),0 0 0 1px var(--border);display:inline-block}
+    .board-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding:0 4px}
+    .board-timer{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;color:var(--blue)}
+    .board-errors{font-size:.85rem;color:var(--red);font-weight:600}
+    .sudoku-grid{display:grid;grid-template-columns:repeat(9,1fr);border:2.5px solid var(--ink);border-radius:8px;overflow:hidden;width:min(324px,80vw)}
+    .sudoku-grid .cell{width:calc(min(324px,80vw)/9);height:calc(min(324px,80vw)/9);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:clamp(.75rem,2vw,1rem);font-weight:700;border:.5px solid #D0D8E4;background:var(--white)}
+    .cell.given{color:var(--ink)}.cell.filled{color:var(--blue)}.cell.correct{color:var(--green);background:#F0FBF6}.cell.selected{background:var(--blue-lt)}.cell.box-right{border-right:2px solid var(--ink)}.cell.box-bottom{border-bottom:2px solid var(--ink)}
+    section{padding:80px 5vw}
+    .section-label{font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+    .section-title{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;line-height:1.1;letter-spacing:-.02em;color:var(--ink);max-width:600px;margin-bottom:16px}
+    .section-sub{color:var(--muted);max-width:520px;margin-bottom:48px;font-size:1.05rem}
+    .modes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+    .mode-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px;transition:transform .2s,box-shadow .2s}
+    .mode-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(14,26,43,.08)}
+    .mode-icon{font-size:2rem;margin-bottom:14px;width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:12px}
+    .mode-card h3{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:8px}
+    .mode-card p{font-size:.9rem;color:var(--muted);line-height:1.5}
+    .mode-badge{display:inline-block;margin-top:14px;font-size:.72rem;font-weight:600;padding:3px 10px;border-radius:999px;letter-spacing:.05em}
+    .features-bg{background:var(--surface)}
+    .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+    .feature-item{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:24px 20px}
+    .feature-item .fi{font-size:1.6rem;margin-bottom:10px}
+    .feature-item h4{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:6px}
+    .feature-item p{font-size:.85rem;color:var(--muted);line-height:1.5}
+    .download-section{background:var(--ink);color:var(--white);border-radius:24px;padding:64px 5vw;text-align:center;margin:0 4vw 80px}
+    .download-section .section-label{color:var(--gold)}
+    .download-section .section-title{color:var(--white);margin:0 auto 16px}
+    .download-section .section-sub{color:rgba(255,255,255,.6);margin:0 auto 36px}
+    .store-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+    .store-btn{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:12px 22px;color:var(--white);text-decoration:none;font-weight:600;font-size:.95rem;transition:background .2s}
+    .store-btn:hover{background:rgba(255,255,255,.18)}
+    .store-btn-icon{font-size:1.6rem}
+    .store-btn-sub{font-size:.7rem;opacity:.7;font-weight:400;display:block}
+    .coming-soon{font-size:.8rem;color:rgba(255,255,255,.4);margin-top:16px}
+    footer{border-top:1px solid var(--border);padding:32px 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+    .footer-logo{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:var(--blue);text-decoration:none}
+    .footer-logo span{color:var(--gold)}
+    .footer-links{display:flex;gap:24px;list-style:none}
+    .footer-links a{color:var(--muted);text-decoration:none;font-size:.85rem}
+    .footer-links a:hover{color:var(--blue)}
+    .footer-copy{font-size:.8rem;color:#BBB}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    @media(max-width:640px){.nav-links{display:none}.hero-actions{flex-direction:column;align-items:center}.btn-primary,.btn-secondary{width:100%;max-width:280px;text-align:center}footer{flex-direction:column;text-align:center}.footer-links{justify-content:center}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index-en.html">Sudoku<span>Fight</span></a>
+  <ul class="nav-links">
+    <li><a href="#modes">Modes</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#download">Download</a></li>
+  </ul>
+  <a class="nav-cta" href="#download">Download free</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-grid" aria-hidden="true">
+    <script>
+      const nums='534678912672195348198342567859761423426853791713924856961537284287419635345286179';
+      document.currentScript.insertAdjacentHTML('afterend',nums.split('').map((n,i)=>{const col=i%9;const row=Math.floor(i/9);const boxR=Math.floor(row/3);const boxC=Math.floor(col/3);const br=(boxC===0||boxC===1)?'box-right':'';const bb=(boxR===0||boxR===1)?'box-bottom':'';return`<div class="hero-grid-cell ${br} ${bb}">${n}</div>`;}).join(''));
+    </script>
+  </div>
+
+  <div class="hero-badge">⚡ Now available · Free</div>
+  <h1>The sudoku that <em>puts you to the test</em></h1>
+  <p class="hero-sub">Challenge your friends in real time, compete against strangers or beat your own records. Sudoku Fight takes the classic to the next level.</p>
+
+  <div class="hero-actions">
+    <a class="btn-primary" href="#download">📱 Download free</a>
+    <a class="btn-secondary" href="#modes">See game modes</a>
+  </div>
+  <p class="hero-note">Available on iOS and Android · No account required to explore</p>
+
+  <div class="hero-board">
+    <div class="board-frame">
+      <div class="board-header">
+        <span class="board-timer">04:23</span>
+        <span class="board-errors">2 errors</span>
+      </div>
+      <div class="sudoku-grid" id="demo-board"></div>
+    </div>
+  </div>
+</section>
+
+<section id="modes">
+  <p class="section-label">Game modes</p>
+  <h2 class="section-title">Four ways to play, one app</h2>
+  <p class="section-sub">From quick duels to team collaboration. Pick your favourite mode or try them all.</p>
+
+  <div class="modes-grid">
+    <div class="mode-card">
+      <div class="mode-icon" style="background:#EBF3FB">⚡</div>
+      <h3>Face to face</h3>
+      <p>Compete in real time against another player. Same puzzle, same moment. First to finish wins.</p>
+      <span class="mode-badge" style="background:#EBF3FB;color:#185FA5">Multiplayer</span>
+    </div>
+    <div class="mode-card">
+      <div class="mode-icon" style="background:#F2EEF9">⏱</div>
+      <h3>Best time</h3>
+      <p>Play whenever you want and compare your time with your rival's. No need to be online at the same time.</p>
+      <span class="mode-badge" style="background:#F2EEF9;color:#7B5EA7">Async</span>
+    </div>
+    <div class="mode-card">
+      <div class="mode-icon" style="background:#E8F5ED">🤝</div>
+      <h3>Cooperative</h3>
+      <p>Solve the puzzle with a partner. Each of you fills in the cells you can, and the clock runs for both.</p>
+      <span class="mode-badge" style="background:#E8F5ED;color:#1D9E75">Team</span>
+    </div>
+    <div class="mode-card">
+      <div class="mode-icon" style="background:#FFF8EC">🧩</div>
+      <h3>Solo</h3>
+      <p>No pressure. Solve at your own pace, beat your records and level up when you're ready.</p>
+      <span class="mode-badge" style="background:#FFF8EC;color:#B87A10">Solo</span>
+    </div>
+  </div>
+</section>
+
+<section id="features" class="features-bg">
+  <p class="section-label">Features</p>
+  <h2 class="section-title">Everything you need to play seriously</h2>
+  <p class="section-sub">Built for players who want more than a newspaper sudoku.</p>
+
+  <div class="features-grid">
+    <div class="feature-item">
+      <div class="fi">📊</div>
+      <h4>Full stats</h4>
+      <p>Wins, streaks, average time, best score by difficulty. All at a glance.</p>
+    </div>
+    <div class="feature-item">
+      <div class="fi">🏆</div>
+      <h4>Achievements</h4>
+      <p>Over 40 achievements to unlock. From your first win to 15-game streaks.</p>
+    </div>
+    <div class="feature-item">
+      <div class="fi">🤺</div>
+      <h4>Rivals</h4>
+      <p>Check your full history against each rival: games played, who's winning and your best time against them.</p>
+    </div>
+    <div class="feature-item">
+      <div class="fi">✏️</div>
+      <h4>Pencil mode</h4>
+      <p>Note candidates in any cell without committing your move. Just like on paper, but better.</p>
+    </div>
+    <div class="feature-item">
+      <div class="fi">💡</div>
+      <h4>Hints</h4>
+      <p>Stuck? Request a hint and the game reveals one cell. One free for Premium users, the rest in exchange for an ad.</p>
+    </div>
+    <div class="feature-item">
+      <div class="fi">🔔</div>
+      <h4>Notifications</h4>
+      <p>We let you know when a rival challenges you or when it's your turn in an ongoing game.</p>
+    </div>
+  </div>
+</section>
+
+<section id="download" style="padding:0;">
+  <div class="download-section">
+    <p class="section-label">Download</p>
+    <h2 class="section-title">Start playing today. It's free.</h2>
+    <p class="section-sub">Available for iOS and Android. No subscription required to get started.</p>
+
+    <div class="store-buttons">
+      <a class="store-btn" href="#" aria-label="Download on the App Store">
+        <span class="store-btn-icon">🍎</span>
+        <div>
+          <span class="store-btn-sub">Download on the</span>
+          App Store
+        </div>
+      </a>
+      <a class="store-btn" href="#" aria-label="Get it on Google Play">
+        <span class="store-btn-icon">▶</span>
+        <div>
+          <span class="store-btn-sub">Get it on</span>
+          Google Play
+        </div>
+      </a>
+    </div>
+    <p class="coming-soon">Links will go live on official launch day</p>
+  </div>
+</section>
+
+<footer>
+  <a class="footer-logo" href="index-en.html">Sudoku<span>Fight</span></a>
+  <ul class="footer-links">
+    <li><a href="privacy.html">Privacy policy</a></li>
+    <li><a href="terms.html">Terms and conditions</a></li>
+  </ul>
+  <span class="footer-copy">© 2026 SudokuFight. All rights reserved.</span>
+</footer>
+
+<script>
+  const puzzle=[[5,3,0,0,7,0,0,0,0],[6,0,0,1,9,5,0,0,0],[0,9,8,0,0,0,0,6,0],[8,0,0,0,6,0,0,0,3],[4,0,0,8,0,3,0,0,1],[7,0,0,0,2,0,0,0,6],[0,6,0,0,0,0,2,8,0],[0,0,0,4,1,9,0,0,5],[0,0,0,0,8,0,0,7,9]];
+  const filled=[[0,0,4,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,6,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0]];
+  const board=document.getElementById('demo-board');
+  for(let r=0;r<9;r++){for(let c=0;c<9;c++){const cell=document.createElement('div');cell.className='cell';if(c===2||c===5)cell.classList.add('box-right');if(r===2||r===5)cell.classList.add('box-bottom');if(r===0&&c===2)cell.classList.add('selected');if(puzzle[r][c]!==0){cell.classList.add('given');cell.textContent=puzzle[r][c];}else if(filled[r][c]!==0){cell.classList.add(filled[r][c]===4?'correct':'filled');cell.textContent=filled[r][c];}board.appendChild(cell);}}
+</script>
+</body>
+</html>

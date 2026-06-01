@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Sudoku Fight</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--blue:#185FA5;--ink:#0E1A2B;--muted:#6B7A8D;--surface:#F7F8FA;--white:#FFFFFF;--border:#E2E8F0}
+    body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);line-height:1.7}
+    nav{display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:64px;border-bottom:1px solid var(--border)}
+    .nav-logo{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:var(--blue);text-decoration:none}
+    .nav-logo span{color:#E8A020}
+    .nav-back{color:var(--muted);text-decoration:none;font-size:.9rem}
+    .nav-back:hover{color:var(--blue)}
+    .page-hero{background:var(--surface);padding:56px 5vw 40px;border-bottom:1px solid var(--border)}
+    .page-label{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
+    .page-title{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;line-height:1.1}
+    .page-meta{margin-top:12px;font-size:.85rem;color:var(--muted)}
+    .content{max-width:740px;margin:0 auto;padding:56px 5vw 80px}
+    .content h2{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;color:var(--ink);margin:40px 0 12px;padding-bottom:8px;border-bottom:1.5px solid var(--border)}
+    .content h2:first-child{margin-top:0}
+    .content p{margin-bottom:14px;color:#334155}
+    .content ul{padding-left:20px;margin-bottom:14px}
+    .content ul li{margin-bottom:6px;color:#334155}
+    .content a{color:var(--blue)}
+    .content strong{color:var(--ink)}
+    .info-box{background:#EBF3FB;border-left:4px solid var(--blue);border-radius:0 8px 8px 0;padding:16px 20px;margin:24px 0;font-size:.9rem;color:#1a3a5c}
+    footer{border-top:1px solid var(--border);padding:24px 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+    .footer-logo{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:var(--blue);text-decoration:none}
+    .footer-logo span{color:#E8A020}
+    .footer-links{display:flex;gap:20px;list-style:none}
+    .footer-links a{color:var(--muted);text-decoration:none;font-size:.85rem}
+    .footer-copy{font-size:.8rem;color:#BBB}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index-en.html">Sudoku<span>Fight</span></a>
+  <a class="nav-back" href="index-en.html">← Back to home</a>
+</nav>
+
+<div class="page-hero">
+  <p class="page-label">Legal</p>
+  <h1 class="page-title">Privacy Policy</h1>
+  <p class="page-meta">Last updated: May 2026</p>
+</div>
+
+<div class="content">
+
+  <div class="info-box">
+    Your privacy matters to us. This policy clearly explains what data Sudoku Fight collects, how we use it, and what your rights are as a user.
+  </div>
+
+  <h2>1. Data controller</h2>
+  <p>The controller responsible for processing your personal data is:</p>
+  <ul>
+    <li><strong>Name:</strong> Benito [Surname] (sole trader)</li>
+    <li><strong>Contact:</strong> <a href="mailto:privacy@sudokufight.com">privacy@sudokufight.com</a></li>
+    <li><strong>Country:</strong> Spain</li>
+  </ul>
+
+  <h2>2. Data we collect</h2>
+  <p>We collect only what is necessary for the app to work:</p>
+  <ul>
+    <li><strong>Username</strong> — chosen by you when you sign up. We do not ask for your real name.</li>
+    <li><strong>Password</strong> — stored hashed with bcrypt. We never see it in plain text.</li>
+    <li><strong>Game data</strong> — results, times, moves and gameplay statistics.</li>
+    <li><strong>Push notification token</strong> — to send you game alerts (only if you authorise it).</li>
+    <li><strong>Device identifier</strong> — used by analytics and advertising services (see section 5).</li>
+  </ul>
+  <p>We do not collect your real name, email address, phone number, location or any other sensitive personal data.</p>
+
+  <h2>3. Legal basis for processing</h2>
+  <p>We process your data under the following legal bases (GDPR, art. 6):</p>
+  <ul>
+    <li><strong>Contract performance</strong> — account and game data are necessary to provide the service.</li>
+    <li><strong>Consent</strong> — push notifications and personalised advertising require your prior authorisation, which you can withdraw at any time.</li>
+    <li><strong>Legitimate interest</strong> — aggregate and anonymous analysis of app usage to improve the service.</li>
+  </ul>
+
+  <h2>4. Who we share your data with</h2>
+  <p>We do not sell or transfer your data to third parties. We do work with the following service providers:</p>
+  <ul>
+    <li><strong>Google Firebase / Firestore</strong> — database and push notifications. <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase Privacy Policy</a>.</li>
+    <li><strong>Google AdMob</strong> — in-app advertising (free users only). May collect IDFA/GAID to serve relevant ads, subject to your consent via our consent popup. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>.</li>
+    <li><strong>Sentry</strong> — technical error reporting to improve app stability. Reports do not include game data or personal identifiers. <a href="https://sentry.io/privacy/" target="_blank" rel="noopener">Sentry Privacy Policy</a>.</li>
+  </ul>
+
+  <h2>5. Advertising and tracking</h2>
+  <p>The free version of Sudoku Fight shows ads managed by Google AdMob. Before showing personalised ads we ask for your explicit consent via a popup (required by EU law — TCF 2.0 — and by Apple on iOS via the ATT framework).</p>
+  <p>If you decline consent, non-personalised ads will be shown. If you purchase the Premium version, no ads of any kind are displayed.</p>
+  <p>You can withdraw your consent at any time in your device settings.</p>
+
+  <h2>6. How long we keep your data</h2>
+  <ul>
+    <li><strong>Account and game data:</strong> for as long as your account is active.</li>
+    <li><strong>After account deletion:</strong> all your data is permanently and immediately deleted from our servers. This action is irreversible.</li>
+    <li><strong>Error reports (Sentry):</strong> automatically deleted after 90 days.</li>
+  </ul>
+
+  <h2>7. Your rights</h2>
+  <p>As a user in the European Union you have the right to:</p>
+  <ul>
+    <li><strong>Access</strong> — know what data we hold about you.</li>
+    <li><strong>Rectification</strong> — correct inaccurate data.</li>
+    <li><strong>Erasure</strong> — delete your account and all your data directly from the app (Settings → Delete account).</li>
+    <li><strong>Portability</strong> — receive your data in a readable format.</li>
+    <li><strong>Objection</strong> — object to processing based on legitimate interest.</li>
+    <li><strong>Withdraw consent</strong> — at any time for notifications and personalised advertising.</li>
+  </ul>
+  <p>To exercise any right, write to us at <a href="mailto:privacy@sudokufight.com">privacy@sudokufight.com</a>. We will respond within 30 days.</p>
+  <p>You also have the right to lodge a complaint with your local data protection authority. In Spain: <a href="https://www.aepd.es" target="_blank" rel="noopener">AEPD</a>.</p>
+
+  <h2>8. Security</h2>
+  <ul>
+    <li>Passwords hashed with bcrypt.</li>
+    <li>Communications encrypted via HTTPS/TLS.</li>
+    <li>Authentication tokens with automatic expiry.</li>
+    <li>Restricted access to server data.</li>
+  </ul>
+
+  <h2>9. Minors</h2>
+  <p>Sudoku Fight is not directed at children under 13. If you become aware that a minor has provided us with data without parental consent, please contact us to delete it immediately.</p>
+
+  <h2>10. Changes to this policy</h2>
+  <p>We may update this policy when necessary. We will notify you of important changes via the app. The date of last update is always shown at the top of this page.</p>
+
+  <h2>11. Contact</h2>
+  <p>For any privacy questions: <a href="mailto:privacy@sudokufight.com">privacy@sudokufight.com</a></p>
+
+</div>
+
+<footer>
+  <a class="footer-logo" href="index-en.html">Sudoku<span>Fight</span></a>
+  <ul class="footer-links">
+    <li><a href="privacy.html">Privacy policy</a></li>
+    <li><a href="terms.html">Terms and conditions</a></li>
+  </ul>
+  <span class="footer-copy">© 2026 SudokuFight.</span>
+</footer>
+
+</body>
+</html>
