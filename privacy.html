@@ -31,7 +31,7 @@
     footer{border-top:1px solid var(--border);padding:24px 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
     .footer-logo{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:var(--blue);text-decoration:none}
     .footer-logo span{color:#E8A020}
-    .footer-links{display:flex;gap:20px;list-style:none}
+    .footer-links{display:flex;gap:20px;list-style:none;flex-wrap:wrap}
     .footer-links a{color:var(--muted);text-decoration:none;font-size:.85rem}
     .footer-copy{font-size:.8rem;color:#BBB}
   </style>
@@ -46,7 +46,7 @@
 <div class="page-hero">
   <p class="page-label">Legal</p>
   <h1 class="page-title">Privacy Policy</h1>
-  <p class="page-meta">Last updated: May 2026</p>
+  <p class="page-meta">Last updated: June 2026</p>
 </div>
 
 <div class="content">
@@ -66,18 +66,18 @@
   <h2>2. Data we collect</h2>
   <p>We collect only what is necessary for the app to work:</p>
   <ul>
-    <li><strong>Username</strong> — chosen by you when you sign up. We do not ask for your real name.</li>
+    <li><strong>Username</strong> — chosen by you when you sign up. This is the only identifier visible in the app and in games. We do not ask for your real name.</li>
+    <li><strong>Email address</strong> — collected at registration. Used exclusively for important service communications (service notices, account recovery). <strong>It is never shown publicly or to other users.</strong> You can update it at any time from Settings → Change email address.</li>
     <li><strong>Password</strong> — stored hashed with bcrypt. We never see it in plain text.</li>
     <li><strong>Game data</strong> — results, times, moves and gameplay statistics.</li>
     <li><strong>Push notification token</strong> — to send you game alerts (only if you authorise it).</li>
     <li><strong>Device identifier</strong> — used by analytics and advertising services (see section 5).</li>
   </ul>
-  <p>We do not collect your real name, email address, phone number, location or any other sensitive personal data.</p>
 
   <h2>3. Legal basis for processing</h2>
   <p>We process your data under the following legal bases (GDPR, art. 6):</p>
   <ul>
-    <li><strong>Contract performance</strong> — account and game data are necessary to provide the service.</li>
+    <li><strong>Contract performance</strong> — account data (including email) and game data are necessary to provide the service.</li>
     <li><strong>Consent</strong> — push notifications and personalised advertising require your prior authorisation, which you can withdraw at any time.</li>
     <li><strong>Legitimate interest</strong> — aggregate and anonymous analysis of app usage to improve the service.</li>
   </ul>
@@ -85,9 +85,10 @@
   <h2>4. Who we share your data with</h2>
   <p>We do not sell or transfer your data to third parties. We do work with the following service providers:</p>
   <ul>
-    <li><strong>Google Firebase / Firestore</strong> — database and push notifications. <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase Privacy Policy</a>.</li>
+    <li><strong>Own server</strong> — account and game data are stored on a private server under our exclusive control.</li>
     <li><strong>Google AdMob</strong> — in-app advertising (free users only). May collect IDFA/GAID to serve relevant ads, subject to your consent via our consent popup. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>.</li>
     <li><strong>Sentry</strong> — technical error reporting to improve app stability. Reports do not include game data or personal identifiers. <a href="https://sentry.io/privacy/" target="_blank" rel="noopener">Sentry Privacy Policy</a>.</li>
+    <li><strong>Expo / Expo Push Service</strong> — push notification delivery. <a href="https://expo.dev/privacy" target="_blank" rel="noopener">Expo Privacy Policy</a>.</li>
   </ul>
 
   <h2>5. Advertising and tracking</h2>
@@ -98,7 +99,8 @@
   <h2>6. How long we keep your data</h2>
   <ul>
     <li><strong>Account and game data:</strong> for as long as your account is active.</li>
-    <li><strong>After account deletion:</strong> all your data is permanently and immediately deleted from our servers. This action is irreversible.</li>
+    <li><strong>Email address:</strong> for as long as your account is active. You can update it at any time from Settings.</li>
+    <li><strong>After account deletion:</strong> all your data (including your email) is permanently and immediately deleted from our servers. This action is irreversible.</li>
     <li><strong>Error reports (Sentry):</strong> automatically deleted after 90 days.</li>
   </ul>
 
@@ -106,7 +108,7 @@
   <p>As a user in the European Union you have the right to:</p>
   <ul>
     <li><strong>Access</strong> — know what data we hold about you.</li>
-    <li><strong>Rectification</strong> — correct inaccurate data.</li>
+    <li><strong>Rectification</strong> — correct inaccurate data, including your email address (Settings → Change email address).</li>
     <li><strong>Erasure</strong> — delete your account and all your data directly from the app (Settings → Delete account).</li>
     <li><strong>Portability</strong> — receive your data in a readable format.</li>
     <li><strong>Objection</strong> — object to processing based on legitimate interest.</li>
@@ -121,6 +123,7 @@
     <li>Communications encrypted via HTTPS/TLS.</li>
     <li>Authentication tokens with automatic expiry.</li>
     <li>Restricted access to server data.</li>
+    <li>Email address is never exposed in the app interface or public APIs.</li>
   </ul>
 
   <h2>9. Minors</h2>
@@ -139,6 +142,7 @@
   <ul class="footer-links">
     <li><a href="privacy.html">Privacy policy</a></li>
     <li><a href="terms.html">Terms and conditions</a></li>
+    <li><a href="cookies-en.html">Cookie policy</a></li>
   </ul>
   <span class="footer-copy">© 2026 SudokuFight.</span>
 </footer>

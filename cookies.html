@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Política de Cookies — Sudoku Fight</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --blue: #185FA5; --ink: #0E1A2B; --muted: #6B7A8D; --surface: #F7F8FA; --white: #FFFFFF; --border: #E2E8F0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--ink); line-height: 1.7; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 0 5vw; height: 64px; border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800; color: var(--blue); text-decoration: none; }
+    .nav-logo span { color: #E8A020; }
+    .nav-back { color: var(--muted); text-decoration: none; font-size: 0.9rem; }
+    .nav-back:hover { color: var(--blue); }
+    .page-hero { background: var(--surface); padding: 56px 5vw 40px; border-bottom: 1px solid var(--border); }
+    .page-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
+    .page-title { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; line-height: 1.1; }
+    .page-meta { margin-top: 12px; font-size: 0.85rem; color: var(--muted); }
+    .content { max-width: 740px; margin: 0 auto; padding: 56px 5vw 80px; }
+    .content h2 { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--ink); margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1.5px solid var(--border); }
+    .content h2:first-child { margin-top: 0; }
+    .content p { margin-bottom: 14px; color: #334155; }
+    .content ul { padding-left: 20px; margin-bottom: 14px; }
+    .content ul li { margin-bottom: 6px; color: #334155; }
+    .content a { color: var(--blue); }
+    .content strong { color: var(--ink); }
+    .info-box { background: #EBF3FB; border-left: 4px solid var(--blue); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 24px 0; font-size: 0.9rem; color: #1a3a5c; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 0.9rem; }
+    th { background: var(--surface); font-weight: 600; text-align: left; padding: 10px 12px; border: 1px solid var(--border); color: var(--ink); }
+    td { padding: 10px 12px; border: 1px solid var(--border); color: #334155; vertical-align: top; }
+    footer { border-top: 1px solid var(--border); padding: 24px 5vw; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-logo { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; color: var(--blue); text-decoration: none; }
+    .footer-logo span { color: #E8A020; }
+    .footer-links { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; }
+    .footer-copy { font-size: 0.8rem; color: #BBB; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Sudoku<span>Fight</span></a>
+  <a class="nav-back" href="index.html">← Volver al inicio</a>
+</nav>
+
+<div class="page-hero">
+  <p class="page-label">Legal</p>
+  <h1 class="page-title">Política de Cookies y Tecnologías de Seguimiento</h1>
+  <p class="page-meta">Última actualización: junio de 2026</p>
+</div>
+
+<div class="content">
+
+  <div class="info-box">
+    Sudoku Fight es una aplicación móvil nativa. A diferencia de los sitios web, las apps móviles no utilizan cookies de navegador. Sin embargo, sí empleamos tecnologías equivalentes para el funcionamiento del servicio y la publicidad. Esta política explica cuáles son y cómo puedes controlarlas.
+  </div>
+
+  <h2>1. ¿Qué son las cookies y las tecnologías equivalentes?</h2>
+  <p>Las cookies son pequeños archivos que los sitios web almacenan en tu navegador. En las apps móviles nativas no existen como tal, pero se usan tecnologías con funciones similares:</p>
+  <ul>
+    <li><strong>Almacenamiento local (AsyncStorage)</strong> — guardamos datos de sesión (token de autenticación, preferencias de idioma) directamente en tu dispositivo para que no tengas que iniciar sesión cada vez que abras la app.</li>
+    <li><strong>Identificadores de dispositivo (IDFA/GAID)</strong> — identificadores anónimos generados por iOS (IDFA) y Android (GAID) que pueden usarse para publicidad personalizada. Requieren tu consentimiento explícito.</li>
+    <li><strong>Token de notificaciones push</strong> — identificador único que asociamos a tu dispositivo para enviarte notificaciones de partidas, solo si las autorizas.</li>
+  </ul>
+
+  <h2>2. Tecnologías que utilizamos</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Tecnología</th>
+        <th>Finalidad</th>
+        <th>Proveedor</th>
+        <th>Consentimiento requerido</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>AsyncStorage (token de sesión)</td>
+        <td>Mantener la sesión iniciada entre aperturas de la app</td>
+        <td>Propio</td>
+        <td>No — necesario para el funcionamiento del servicio</td>
+      </tr>
+      <tr>
+        <td>AsyncStorage (preferencias)</td>
+        <td>Recordar el idioma seleccionado y otras preferencias</td>
+        <td>Propio</td>
+        <td>No — necesario para el funcionamiento del servicio</td>
+      </tr>
+      <tr>
+        <td>IDFA / GAID</td>
+        <td>Publicidad personalizada</td>
+        <td>Google AdMob</td>
+        <td><strong>Sí</strong> — solicitamos tu permiso mediante popup (ATT en iOS, TCF en Android)</td>
+      </tr>
+      <tr>
+        <td>Token de notificaciones push</td>
+        <td>Enviar avisos de partidas y retos</td>
+        <td>Expo Push Service</td>
+        <td><strong>Sí</strong> — solicitamos tu permiso al activar las notificaciones</td>
+      </tr>
+      <tr>
+        <td>Identificador de instalación (Sentry)</td>
+        <td>Rastreo anónimo de errores técnicos para mejorar la estabilidad</td>
+        <td>Sentry</td>
+        <td>No — datos anónimos, sin identificación personal</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>3. Publicidad personalizada y consentimiento</h2>
+  <p>La versión gratuita de Sudoku Fight muestra anuncios de Google AdMob. Antes de mostrar anuncios personalizados basados en tu actividad o intereses, te solicitamos consentimiento explícito:</p>
+  <ul>
+    <li><strong>En iOS:</strong> mediante el diálogo de App Tracking Transparency (ATT) de Apple.</li>
+    <li><strong>En Android:</strong> mediante el popup de consentimiento conforme al TCF 2.0 de IAB Europe.</li>
+  </ul>
+  <p>Si rechazas el consentimiento, los anuncios mostrados serán no personalizados (contextuales). Si adquieres Premium, no se muestran anuncios de ningún tipo y no se accede al IDFA/GAID.</p>
+
+  <h2>4. Cómo controlar o retirar el consentimiento</h2>
+  <p>Puedes gestionar las tecnologías de seguimiento desde los ajustes de tu dispositivo:</p>
+  <ul>
+    <li><strong>iOS:</strong> Ajustes → Privacidad y seguridad → Seguimiento → desactiva el permiso de Sudoku Fight. También puedes ir a Ajustes → Privacidad y seguridad → Apple Advertising para limitar los anuncios personalizados de forma global.</li>
+    <li><strong>Android:</strong> Ajustes → Google → Anuncios → Restablecer ID de publicidad o activar "Inhabilitar personalización de anuncios".</li>
+    <li><strong>Notificaciones:</strong> Ajustes del dispositivo → Notificaciones → Sudoku Fight → desactívalas en cualquier momento.</li>
+  </ul>
+  <p>Para eliminar todos los datos locales almacenados por la app (incluido el token de sesión y preferencias), elimina y reinstala la aplicación, o elimina tu cuenta desde Configuración → Eliminar cuenta.</p>
+
+  <h2>5. Transferencias internacionales</h2>
+  <p>Google AdMob puede transferir datos a servidores fuera del Espacio Económico Europeo. Estas transferencias están cubiertas por las cláusulas contractuales tipo aprobadas por la Comisión Europea. Consulta la <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">política de privacidad de Google</a> para más información.</p>
+
+  <h2>6. Cambios en esta política</h2>
+  <p>Podemos actualizar esta política cuando incorporemos nuevas tecnologías o servicios. La fecha de última actualización siempre estará visible en la parte superior de esta página.</p>
+
+  <h2>7. Contacto</h2>
+  <p>Para cualquier consulta sobre el uso de tecnologías de seguimiento: <a href="mailto:privacidad@sudokufight.com">privacidad@sudokufight.com</a></p>
+
+</div>
+
+<footer>
+  <a class="footer-logo" href="index.html">Sudoku<span>Fight</span></a>
+  <ul class="footer-links">
+    <li><a href="privacidad.html">Política de privacidad</a></li>
+    <li><a href="terminos.html">Términos y condiciones</a></li>
+    <li><a href="cookies.html">Política de cookies</a></li>
+  </ul>
+  <span class="footer-copy">© 2026 SudokuFight.</span>
+</footer>
+
+</body>
+</html>

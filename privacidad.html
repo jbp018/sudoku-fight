@@ -13,50 +13,28 @@
       --surface: #F7F8FA; --white: #FFFFFF; --border: #E2E8F0;
     }
     body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--ink); line-height: 1.7; }
-    nav {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 5vw; height: 64px;
-      border-bottom: 1px solid var(--border);
-    }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 0 5vw; height: 64px; border-bottom: 1px solid var(--border); }
     .nav-logo { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800; color: var(--blue); text-decoration: none; }
     .nav-logo span { color: #E8A020; }
     .nav-back { color: var(--muted); text-decoration: none; font-size: 0.9rem; }
     .nav-back:hover { color: var(--blue); }
-
-    .page-hero {
-      background: var(--surface); padding: 56px 5vw 40px;
-      border-bottom: 1px solid var(--border);
-    }
+    .page-hero { background: var(--surface); padding: 56px 5vw 40px; border-bottom: 1px solid var(--border); }
     .page-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
     .page-title { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; line-height: 1.1; }
     .page-meta { margin-top: 12px; font-size: 0.85rem; color: var(--muted); }
-
     .content { max-width: 740px; margin: 0 auto; padding: 56px 5vw 80px; }
-    .content h2 {
-      font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700;
-      color: var(--ink); margin: 40px 0 12px;
-      padding-bottom: 8px; border-bottom: 1.5px solid var(--border);
-    }
+    .content h2 { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--ink); margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1.5px solid var(--border); }
     .content h2:first-child { margin-top: 0; }
     .content p { margin-bottom: 14px; color: #334155; }
     .content ul { padding-left: 20px; margin-bottom: 14px; }
     .content ul li { margin-bottom: 6px; color: #334155; }
     .content a { color: var(--blue); }
     .content strong { color: var(--ink); }
-
-    .info-box {
-      background: #EBF3FB; border-left: 4px solid var(--blue);
-      border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 24px 0;
-      font-size: 0.9rem; color: #1a3a5c;
-    }
-
-    footer {
-      border-top: 1px solid var(--border); padding: 24px 5vw;
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
-    }
+    .info-box { background: #EBF3FB; border-left: 4px solid var(--blue); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 24px 0; font-size: 0.9rem; color: #1a3a5c; }
+    footer { border-top: 1px solid var(--border); padding: 24px 5vw; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
     .footer-logo { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; color: var(--blue); text-decoration: none; }
     .footer-logo span { color: #E8A020; }
-    .footer-links { display: flex; gap: 20px; list-style: none; }
+    .footer-links { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; }
     .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; }
     .footer-copy { font-size: 0.8rem; color: #BBB; }
   </style>
@@ -71,7 +49,7 @@
 <div class="page-hero">
   <p class="page-label">Legal</p>
   <h1 class="page-title">Política de Privacidad</h1>
-  <p class="page-meta">Última actualización: mayo de 2026</p>
+  <p class="page-meta">Última actualización: junio de 2026</p>
 </div>
 
 <div class="content">
@@ -91,18 +69,18 @@
   <h2>2. Datos que recogemos</h2>
   <p>Recogemos únicamente los datos necesarios para el funcionamiento de la app:</p>
   <ul>
-    <li><strong>Nombre de usuario</strong> — elegido por ti al registrarte. No pedimos nombre real.</li>
+    <li><strong>Nombre de usuario</strong> — elegido por ti al registrarte. Es el único identificador visible en la app y en partidas. No pedimos nombre real.</li>
+    <li><strong>Correo electrónico</strong> — recogido en el registro. Se usa exclusivamente para comunicaciones importantes (avisos de servicio, recuperación de cuenta). <strong>Nunca se muestra públicamente ni a otros usuarios.</strong> Puedes cambiarlo en cualquier momento desde Configuración → Cambiar correo electrónico.</li>
     <li><strong>Contraseña</strong> — almacenada cifrada con bcrypt. Nunca la vemos en texto plano.</li>
     <li><strong>Datos de partida</strong> — resultados, tiempos, movimientos y estadísticas de juego.</li>
     <li><strong>Token de notificaciones push</strong> — para enviarte avisos de partidas (solo si lo autorizas).</li>
     <li><strong>Identificador de dispositivo</strong> — usado por los servicios de análisis y publicidad (ver sección 5).</li>
   </ul>
-  <p>No recogemos tu nombre real, dirección de correo electrónico, teléfono, ubicación ni ningún otro dato personal sensible.</p>
 
   <h2>3. Base legal del tratamiento</h2>
   <p>Tratamos tus datos sobre las siguientes bases legales (RGPD, art. 6):</p>
   <ul>
-    <li><strong>Ejecución del contrato</strong> — los datos de cuenta y partida son necesarios para prestarte el servicio.</li>
+    <li><strong>Ejecución del contrato</strong> — los datos de cuenta (incluyendo el correo) y partida son necesarios para prestarte el servicio.</li>
     <li><strong>Consentimiento</strong> — las notificaciones push y la publicidad personalizada requieren tu autorización previa y puedes retirarla en cualquier momento.</li>
     <li><strong>Interés legítimo</strong> — el análisis agregado y anónimo del uso de la app para mejorar el servicio.</li>
   </ul>
@@ -110,9 +88,10 @@
   <h2>4. Con quién compartimos tus datos</h2>
   <p>No vendemos ni cedemos tus datos a terceros. Sí trabajamos con los siguientes proveedores de servicios:</p>
   <ul>
-    <li><strong>Google Firebase / Firestore</strong> — base de datos y notificaciones push. <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Política de privacidad de Firebase</a>.</li>
+    <li><strong>Servidor propio</strong> — los datos de cuenta y partidas se almacenan en un servidor privado bajo nuestro control exclusivo.</li>
     <li><strong>Google AdMob</strong> — publicidad dentro de la app (solo usuarios no Premium). Puede recoger el IDFA/GAID para mostrar anuncios relevantes, previa autorización mediante el popup de consentimiento. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Política de privacidad de Google</a>.</li>
     <li><strong>Sentry</strong> — registro de errores técnicos para mejorar la estabilidad de la app. Los reportes no incluyen datos de partida ni identificadores personales. <a href="https://sentry.io/privacy/" target="_blank" rel="noopener">Política de privacidad de Sentry</a>.</li>
+    <li><strong>Expo / Expo Push Service</strong> — envío de notificaciones push. <a href="https://expo.dev/privacy" target="_blank" rel="noopener">Política de privacidad de Expo</a>.</li>
   </ul>
 
   <h2>5. Publicidad y rastreo</h2>
@@ -123,7 +102,8 @@
   <h2>6. Cuánto tiempo conservamos tus datos</h2>
   <ul>
     <li><strong>Datos de cuenta y partidas:</strong> mientras mantengas tu cuenta activa.</li>
-    <li><strong>Tras eliminar la cuenta:</strong> todos tus datos se borran de forma permanente e inmediata de nuestros servidores. Esta acción es irreversible.</li>
+    <li><strong>Correo electrónico:</strong> mientras mantengas tu cuenta. Puedes actualizarlo en cualquier momento desde Configuración.</li>
+    <li><strong>Tras eliminar la cuenta:</strong> todos tus datos (incluyendo el correo) se borran de forma permanente e inmediata de nuestros servidores. Esta acción es irreversible.</li>
     <li><strong>Reportes de error (Sentry):</strong> se eliminan automáticamente a los 90 días.</li>
   </ul>
 
@@ -131,7 +111,7 @@
   <p>Como usuario en la Unión Europea tienes derecho a:</p>
   <ul>
     <li><strong>Acceso</strong> — saber qué datos tenemos sobre ti.</li>
-    <li><strong>Rectificación</strong> — corregir datos inexactos.</li>
+    <li><strong>Rectificación</strong> — corregir datos inexactos, incluido el correo electrónico (desde Configuración → Cambiar correo electrónico).</li>
     <li><strong>Supresión</strong> — eliminar tu cuenta y todos tus datos directamente desde la app (Configuración → Eliminar cuenta).</li>
     <li><strong>Portabilidad</strong> — recibir tus datos en formato legible.</li>
     <li><strong>Oposición</strong> — oponerte al tratamiento basado en interés legítimo.</li>
@@ -147,6 +127,7 @@
     <li>Comunicaciones cifradas mediante HTTPS/TLS.</li>
     <li>Tokens de autenticación con expiración automática.</li>
     <li>Acceso restringido a los datos del servidor.</li>
+    <li>El correo electrónico nunca se expone en la interfaz de la app ni en las APIs públicas.</li>
   </ul>
 
   <h2>9. Menores de edad</h2>
@@ -165,6 +146,7 @@
   <ul class="footer-links">
     <li><a href="privacidad.html">Política de privacidad</a></li>
     <li><a href="terminos.html">Términos y condiciones</a></li>
+    <li><a href="cookies.html">Política de cookies</a></li>
   </ul>
   <span class="footer-copy">© 2026 SudokuFight.</span>
 </footer>

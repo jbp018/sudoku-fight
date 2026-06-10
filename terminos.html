@@ -8,15 +8,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --blue: #185FA5; --ink: #0E1A2B; --muted: #6B7A8D;
-      --surface: #F7F8FA; --white: #FFFFFF; --border: #E2E8F0;
-    }
+    :root { --blue: #185FA5; --ink: #0E1A2B; --muted: #6B7A8D; --surface: #F7F8FA; --white: #FFFFFF; --border: #E2E8F0; }
     body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--ink); line-height: 1.7; }
-    nav {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 5vw; height: 64px; border-bottom: 1px solid var(--border);
-    }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 0 5vw; height: 64px; border-bottom: 1px solid var(--border); }
     .nav-logo { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800; color: var(--blue); text-decoration: none; }
     .nav-logo span { color: #E8A020; }
     .nav-back { color: var(--muted); text-decoration: none; font-size: 0.9rem; }
@@ -37,7 +31,7 @@
     footer { border-top: 1px solid var(--border); padding: 24px 5vw; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
     .footer-logo { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; color: var(--blue); text-decoration: none; }
     .footer-logo span { color: #E8A020; }
-    .footer-links { display: flex; gap: 20px; list-style: none; }
+    .footer-links { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; }
     .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; }
     .footer-copy { font-size: 0.8rem; color: #BBB; }
   </style>
@@ -52,7 +46,7 @@
 <div class="page-hero">
   <p class="page-label">Legal</p>
   <h1 class="page-title">Términos y Condiciones</h1>
-  <p class="page-meta">Última actualización: mayo de 2026</p>
+  <p class="page-meta">Última actualización: junio de 2026</p>
 </div>
 
 <div class="content">
@@ -80,17 +74,22 @@
   </ul>
 
   <h2>4. Cuentas de usuario</h2>
-  <p>Para jugar en modos multijugador necesitas crear una cuenta con nombre de usuario y contraseña. Eres responsable de mantener la confidencialidad de tu contraseña y de todas las actividades que ocurran en tu cuenta.</p>
-  <p>Puedes eliminar tu cuenta en cualquier momento desde Configuración → Eliminar cuenta. Esta acción es permanente e irreversible.</p>
+  <p>Para jugar en modos multijugador necesitas crear una cuenta con los siguientes datos:</p>
+  <ul>
+    <li><strong>Nombre de usuario</strong> — es el identificador público que aparece en la app, en partidas y en estadísticas. Elige uno que no sea ofensivo ni que se haga pasar por otra persona.</li>
+    <li><strong>Correo electrónico</strong> — requerido durante el registro. Se usa exclusivamente para comunicaciones importantes relacionadas con el servicio (avisos, recuperación de cuenta). <strong>Nunca se muestra a otros usuarios ni aparece en ninguna parte de la app.</strong> Puedes cambiarlo en cualquier momento desde Configuración → Cambiar correo electrónico.</li>
+    <li><strong>Contraseña</strong> — almacenada de forma segura y cifrada. Nunca la vemos en texto plano.</li>
+  </ul>
+  <p>Eres responsable de mantener la confidencialidad de tu contraseña y de todas las actividades que ocurran en tu cuenta.</p>
+  <p>Puedes eliminar tu cuenta en cualquier momento desde Configuración → Eliminar cuenta. Esta acción es permanente e irreversible: se borran tu cuenta, historial de partidas, estadísticas y correo electrónico.</p>
   <p>Nos reservamos el derecho de suspender o eliminar cuentas que incumplan estos términos.</p>
 
   <h2>5. Propiedad intelectual</h2>
   <p>Todo el contenido de Sudoku Fight — código, diseño, gráficos, sonidos y textos — es propiedad del desarrollador o de sus licenciantes y está protegido por la legislación de propiedad intelectual.</p>
   <p>Se te concede una licencia limitada, personal, no exclusiva e intransferible para usar la app en tus dispositivos personales. No puedes copiar, modificar, distribuir, vender ni crear obras derivadas de ninguna parte de la app.</p>
-  <p>El nombre "Sudoku" es un término genérico no protegido. El nombre "Sudoku Fight", el diseño de la app y todos sus elementos distintivos sí están protegidos.</p>
 
   <h2>6. Compras in-app y Premium</h2>
-  <p>Sudoku Fight ofrece una versión gratuita con publicidad y una opción de compra llamada <strong>"Sin anuncios" o "Premium"</strong> que elimina toda la publicidad.</p>
+  <p>Sudoku Fight ofrece una versión gratuita con publicidad y una opción de compra llamada <strong>Premium</strong> que elimina toda la publicidad.</p>
   <ul>
     <li>Los precios se muestran en la store correspondiente antes de la compra.</li>
     <li>Las compras se gestionan a través de Apple App Store o Google Play Store y están sujetas a sus políticas de reembolso.</li>
@@ -129,6 +128,7 @@
   <ul class="footer-links">
     <li><a href="privacidad.html">Política de privacidad</a></li>
     <li><a href="terminos.html">Términos y condiciones</a></li>
+    <li><a href="cookies.html">Política de cookies</a></li>
   </ul>
   <span class="footer-copy">© 2026 SudokuFight.</span>
 </footer>
