@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Te han invitado a Sudoku Fight</title>
+  <meta name="description" content="Usa el código de invitación para crear tu cuenta en Sudoku Fight y empieza con 3 días sin anuncios." />
+  <meta name="robots" content="noindex" />
+  <meta property="og:title" content="Te han invitado a Sudoku Fight ⚔️" />
+  <meta property="og:description" content="Crea tu cuenta con el código de invitación y empieza con 3 días sin anuncios." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:    #185FA5;
+      --gold:    #E8A020;
+      --ink:     #0E1A2B;
+      --muted:   #6B7A8D;
+      --border:  #E2E8F0;
+      --white:   #FFFFFF;
+      --radius:  16px;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, #dbeeff 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 80% 90%, #fff3d4 0%, transparent 60%),
+        var(--white);
+      color: var(--ink);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 32px 5vw;
+    }
+
+    .card {
+      width: 100%; max-width: 460px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 28px;
+      text-align: center;
+      box-shadow: 0 12px 40px rgba(14,26,43,0.08);
+    }
+
+    .sword { font-size: 2.6rem; line-height: 1; }
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.55rem; font-weight: 800;
+      margin-top: 10px;
+    }
+    h1 .gold { color: var(--gold); }
+    .lede { color: var(--muted); font-size: 0.98rem; margin-top: 10px; }
+
+    /* ── Código ── */
+    .code-box {
+      margin-top: 26px;
+      background: #F7F9FC;
+      border: 1px dashed #C3D0E0;
+      border-radius: 12px;
+      padding: 18px 16px;
+    }
+    .code-label {
+      font-size: 0.72rem; font-weight: 600; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.09em;
+    }
+    .code {
+      font-family: 'Syne', sans-serif;
+      /* El código son 7 caracteres y NO debe partirse en dos líneas: se lee de un
+         vistazo o se teclea mal. El tamaño se ajusta al ancho disponible en vez
+         de dejar que haga wrap. */
+      font-size: clamp(1.2rem, 6.4vw, 2rem);
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      /* El letter-spacing también se aplica tras el último carácter y descentra
+         el conjunto; este margen izquierdo lo compensa. */
+      text-indent: 0.12em;
+      margin: 6px 0 14px;
+      white-space: nowrap;
+    }
+    button.copy {
+      width: 100%;
+      background: var(--white); color: var(--blue);
+      border: 1px solid #C3D0E0; border-radius: 10px;
+      padding: 11px 16px;
+      font-family: inherit; font-size: 0.92rem; font-weight: 600;
+      cursor: pointer; transition: background .15s, color .15s;
+    }
+    button.copy:hover { background: #EBF3FB; }
+    button.copy.done { background: #E2EDE4; color: #1D7A4F; border-color: #B8DCC6; }
+
+    /* ── Pasos ── */
+    .steps { text-align: left; margin-top: 28px; display: grid; gap: 14px; }
+    .step { display: flex; gap: 12px; align-items: flex-start; }
+    .step-n {
+      flex: 0 0 24px; height: 24px; border-radius: 50%;
+      background: var(--blue); color: var(--white);
+      font-size: 0.78rem; font-weight: 600;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 2px;
+    }
+    .step p { font-size: 0.92rem; }
+    .step strong { font-weight: 600; }
+
+    /* ── Stores ── */
+    .stores { margin-top: 28px; display: grid; gap: 10px; }
+    a.store {
+      display: block;
+      background: var(--ink); color: var(--white);
+      text-decoration: none;
+      border-radius: 10px; padding: 14px 18px;
+      font-size: 0.95rem; font-weight: 600;
+      transition: opacity .2s;
+    }
+    a.store:hover { opacity: 0.87; }
+    a.store.secondary { background: var(--blue); }
+
+    .note {
+      margin-top: 22px; font-size: 0.8rem; color: var(--muted); line-height: 1.5;
+    }
+    .home { margin-top: 20px; font-size: 0.85rem; }
+    .home a { color: var(--blue); }
+
+    /* Estado sin código válido en la URL */
+    .invalid .code-box, .invalid .steps { display: none; }
+  </style>
+</head>
+<body>
+  <main class="card" id="card">
+    <div class="sword">⚔️</div>
+    <h1>Te han invitado a <span class="gold">Sudoku&nbsp;Fight</span></h1>
+    <p class="lede" id="lede">
+      Crea tu cuenta con este código y empieza con <strong>3 días sin anuncios</strong>.
+    </p>
+
+    <div class="code-box">
+      <div class="code-label">Código de invitación</div>
+      <div class="code" id="code">—</div>
+      <button class="copy" id="copy" type="button">Copiar código</button>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">1</div>
+        <p>Descarga <strong>Sudoku Fight</strong> con el botón de abajo.</p>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <p>Pulsa <strong>«¿No tienes cuenta? Regístrate»</strong> y pega el código en el campo <strong>«Código de invitación»</strong>.</p>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <p>Juega tu primera partida: así tu amigo recibe también su recompensa.</p>
+      </div>
+    </div>
+
+    <div class="stores">
+      <a class="store" id="ios" href="https://apps.apple.com/app/id6793825551">Descargar para iPhone</a>
+      <a class="store secondary" id="android" href="https://play.google.com/store/apps/details?id=com.jbp018.sudokufight">Descargar para Android</a>
+    </div>
+
+    <p class="note">
+      Los días sin anuncios se activan al crear la cuenta con el código. No sustituyen a Premium:
+      los anuncios recompensados que decidas ver voluntariamente siguen disponibles.
+    </p>
+    <p class="home"><a href="/">Ir a la página principal</a></p>
+  </main>
+
+  <script>
+    // El código llega como ?c=CÓDIGO. Se usa un parámetro y no una ruta del tipo
+    // /i/CÓDIGO porque esto es GitHub Pages: hosting estático, sin enrutado, y
+    // una ruta inventada devolvería un 404.
+    // Se acepta también /i/CÓDIGO por si algún día se migra a un hosting con
+    // enrutado real: así los enlaces antiguos seguirían funcionando.
+    var ALPHABET = /^[ABCDEFGHJKMNPQRSTUVWXYZ23456789]{7}$/; // igual que la app
+
+    function readCode() {
+      var q = new URLSearchParams(location.search).get('c');
+      if (!q) {
+        var m = /\/i\/([A-Za-z0-9]+)/.exec(location.pathname);
+        q = m ? m[1] : null;
+      }
+      if (!q) return null;
+      var code = q.toUpperCase();
+      return ALPHABET.test(code) ? code : null;
+    }
+
+    var code = readCode();
+    var codeEl = document.getElementById('code');
+    var copyBtn = document.getElementById('copy');
+
+    if (code) {
+      codeEl.textContent = code;
+      document.title = 'Código ' + code + ' — Sudoku Fight';
+    } else {
+      // Enlace mal copiado: no se deja una pantalla rota, se explica qué hacer.
+      document.getElementById('card').classList.add('invalid');
+      document.getElementById('lede').innerHTML =
+        'Este enlace no lleva un código válido. Pídele a tu amigo que te lo reenvíe, ' +
+        'o descarga la app igualmente y empieza a jugar.';
+    }
+
+    copyBtn.addEventListener('click', function () {
+      if (!code) return;
+      var done = function () {
+        copyBtn.textContent = '✓ Copiado';
+        copyBtn.classList.add('done');
+        setTimeout(function () {
+          copyBtn.textContent = 'Copiar código';
+          copyBtn.classList.remove('done');
+        }, 2000);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code).then(done, fallbackCopy);
+      } else {
+        fallbackCopy();
+      }
+      // Safari antiguo y navegadores in-app (WhatsApp, Instagram) no siempre
+      // exponen navigator.clipboard: sin este respaldo el botón no haría nada
+      // justo donde más se van a abrir estos enlaces.
+      function fallbackCopy() {
+        var ta = document.createElement('textarea');
+        ta.value = code;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'absolute';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); done(); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+    });
+
+    // Deja arriba la tienda que corresponde al móvil desde el que se abre.
+    var ua = navigator.userAgent || '';
+    if (/android/i.test(ua)) {
+      var stores = document.querySelector('.stores');
+      stores.insertBefore(document.getElementById('android'), stores.firstChild);
+    }
+  </script>
+</body>
+</html>
